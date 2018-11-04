@@ -15,7 +15,7 @@ class Map extends Component {
   componentDidMount() {
     const GMapsKey = 'AIzaSyCPqE2gTI9OwdjkIwi0FDNAUfyLF44Pq7k';
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${GMapsKey}&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GMapsKey}`;
     script.async = true;
     script.addEventListener('load', () => {
       this.setState({ mapIsReady: true });
