@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 
 // Credit to this ---> https://stackoverflow.com/questions/48493960/using-google-map-in-react-component
 // for helping me create a map component
 
-class Map extends Component {
+class Map extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,6 +25,7 @@ class Map extends Component {
   }
 
   componentDidUpdate() {
+    console.log('gotem');
     if (this.state.mapIsReady) {
       const roanoke = {
         lat: 37.270969,
@@ -116,16 +117,10 @@ class Map extends Component {
             }
           ]
       })
+      const google = window.google.maps
       const map = this.map;
-      const markers = this.props.restaurants.map(function(elem) {
-        return new window.google.maps.Marker({
-          position: {lat: elem.coordinates.latitude, lng: elem.coordinates.longitude},
-          icon: {
-            url: "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
-          },  
-          map: map
-        })
-      })
+      const restaurants =  this.props.restaurants
+      this.props.setMarkers(google, map, restaurants);
     }
   }
 

@@ -1,12 +1,12 @@
 import React from 'react';
 
 function RestaurantList(props) {
-	const list =  props.restaurants.map(function(elem) {
+	const list =  props.restaurants.map(function(elem, i) {
 		return (
-			<li key={elem.id}><a>{elem.name}</a></li>
+			<li><a href='#' onClick={()=>new props.google.event.trigger(props.markers[i], 'click')} key={elem.id}>{elem.name}</a></li>
 		)
 	})
-	console.log(props)
+	console.log(props.google ? props.google : 'test')
   return (
     <ul>{list}</ul>
   );
