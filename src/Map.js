@@ -116,6 +116,16 @@ class Map extends Component {
             }
           ]
       })
+      const map = this.map;
+      const markers = this.props.restaurants.map(function(elem) {
+        return new window.google.maps.Marker({
+          position: {lat: elem.coordinates.latitude, lng: elem.coordinates.longitude},
+          icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/orange-dot.png"
+          },  
+          map: map
+        })
+      })
     }
   }
 
