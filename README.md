@@ -1,4 +1,20 @@
+# Udacity Neighborhood Map
+
+This app was created as my final project for Udacity's Front-End Nanodegree program.
+
+## Functionality
+
+This app makes and API call to Yelp's Fusion API for Mexican restaurants in Roanoke, VA. Then uses the
+results of this API call to populate a map with markers using Google's Google Maps API and populates
+the info windows of these markers with information taken from the initial Yelp Fusion API call.
+
+The results can be filtered by both price and average rating.
+
+## Dependencies
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+It makes use of both the [Yelp Fusion](https://www.yelp.com/developers/documentation/v3/get_started) and
+[Google Maps](https://developers.google.com/maps/documentation/) as well as [CORS Anywhere](https://cors-anywhere.herokuapp.com/) for use of the Yelp Fusion API which does not have CORS enabled. The font used in this project is "Roboto" from Google Fonts.
 
 ## Available Scripts
 
@@ -26,6 +42,9 @@ The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+This application makes use of Service Workers but this functionality is only available in its production
+build.
 
 ### `npm run eject`
 

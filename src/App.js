@@ -20,11 +20,13 @@ class App extends Component {
 		}
 		this.setFilters = this.setFilters.bind(this);
 		this.setMarkers = this.setMarkers.bind(this);
-		this.toggleMenu = this.toggleMenu.bind(this);
+		this.toggleNav = this.toggleNav.bind(this);
 	}
 
+	// Filters locations shown based on user input
 	setFilters(event, property) {
 		const value = event.target.value;
+		// If filter adjusted was price, filter items based on user input and rating stored in state
 		if (property === 'priceFilter') {
 			const price = value;
 			const rating = this.state.ratingFilter;
@@ -42,6 +44,7 @@ class App extends Component {
 				selectedRestaurants: filteredList,
 			})
 		}
+		// If filter adjusted was rating, filter items based on user input and price stored in state
 		else {
 			const price = this.state.priceFilter;
 			const rating = value;
@@ -61,23 +64,25 @@ class App extends Component {
 		}
 	}
 
-	toggleMenu() {
+	// Toggle navigation menu
+	toggleNav() {
 		if(this.state.menuState === 'menu-hide'){
 			this.setState({
-				menuState: 'menu-show'
+				menuState: 'menu-show',
 			})
 		}
 		else {
 			this.setState({
-				menuState: 'menu-hide'
+				menuState: 'menu-hide',
 			})	
 		}
 	}
 
+	// Set markers on map based on restaurant coordinates
 	setMarkers(google, map, restaurants) {
 		const markers = [];
 		let largeInfoWindow = new google.InfoWindow();
-		for (let i = 0; i < restaurants.length; i++){
+		for (let i = 0; i < restaurants.length; i++) {
 		 	const marker = new google.Marker({
 	      position: {lat: restaurants[i].coordinates.latitude, lng: restaurants[i].coordinates.longitude},
 	      icon: {
@@ -87,29 +92,32 @@ class App extends Component {
 	      id: restaurants[i].id,
 	    })
 	    markers.push(marker);
-	    marker.addListener('click', function(){
+	    // Have markers open infowindow when clicked
+	    marker.addListener('click', function() {
 	    	const marker = this;
 	    	populateInfoWindow(marker, largeInfoWindow, map, restaurants[i]);
 	    	setTimeout(function() {
 	    		marker.setAnimation(null);	
 	    	}, 1000)
-	    	marker.setAnimation(google.Animation.BOUNCE)
+	    	marker.setAnimation(google.Animation.BOUNCE);
 	    })
 		}
+		//Populate markers infowindow with corresponding data
 		function populateInfoWindow(marker, infowindow, map, restaurant) {
 			if (infowindow.marker !== marker) {
 				infowindow.marker = marker;
 				infowindow.setContent(`<div class="info-window">
-																<h2>${restaurant.name}</h2>
+																<h2 tabindex="-1" id=${restaurant.id}>${restaurant.name}</h2>
 																<p>Rating: ${restaurant.rating ? restaurant.rating : 'Unavailable'} Price: ${restaurant.price ? restaurant.price : 'Unavailable'}</p>
 																<img alt=${restaurant.name} src=${restaurant.image_url}>
-																<p>${restaurant.is_open ? 'Open' : 'Closed'}</p>
 																<p>${restaurant.location.address1} ${restaurant.location.address2}, ${restaurant.location.city} ${restaurant.location.zip_code}</p>
 																<p>${restaurant.display_phone}</p>
 																<p class='info-window-attr'>Information courtesy of Yelp's API</p>
 															</div>`)
-
 				infowindow.open(map, marker);
+				infowindow.addListener('closeclick', function(){
+					document.getElementById('menu-burger').focus();
+				})
 			}
 		}
   	this.setState({
@@ -118,6 +126,7 @@ class App extends Component {
   	})
 	}
 
+	// Retrieve restaurant data from yelp API
 	componentDidMount() {
 		fetch('https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=mexican+food&location=roanoke+va', {
 			headers: {
@@ -131,10 +140,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      	<MenuBurger toggleMenu={this.toggleMenu} menuState={this.state.menuState}/>
       	<FilterByRating onChange={this.setFilters}/>
       	<FilterByPrice onChange={this.setFilters}/>
-      	<RestaurantList toggleMenu={this.toggleMenu} menuState={this.state.menuState} restaurants={this.state.selectedRestaurants} google={this.state.googleMap} markers={this.state.markers}/>
+      	<MenuBurger toggleNav={this.toggleNav} menuState={this.state.menuState}/>
+      	<RestaurantList toggleNav={this.toggleNav} menuState={this.state.menuState} restaurants={this.state.selectedRestaurants} google={this.state.googleMap} markers={this.state.markers}/>
         <Map restaurants={this.state.selectedRestaurants} setMarkers={this.setMarkers}/>
       </div>
     );

@@ -26,8 +26,9 @@
 	background-color: #ddd;
 }
 
-.list.menu-show {
-	background-color: green;
+.address {
+	font-size: 12px;
+	font-weight: 100;
 }
 
 @media screen and (max-width: 750px) {
@@ -39,11 +40,35 @@
 		transition: margin-left 1s ease;
 	}
 
-	nav.menu-hide {
-		margin-left: -300px;
+	@keyframes slide-out {
+		0% {
+			margin-left:0;
+			visibility: visible;
+		}
+		99% {
+			margin-left: -310px;
+			visibility: visible;
+		}
+		100% {
+			visibility: hidden;
+		}
 	}
 
+	nav.menu-hide {
+		animation: slide-out 1s ease forwards;
+	}
+
+	@keyframes slide-in {
+		0% {
+			margin-left:-300px;
+			visibility: visible;
+		}
+		100% {
+			margin-left: 0;
+		}
+	}
+	
 	nav.menu-show {
-		margin-left: 0;
+		animation: slide-in 1s ease forwards;
 	}
 }

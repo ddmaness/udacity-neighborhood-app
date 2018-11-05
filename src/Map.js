@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
-import './Map.css'
+import './Map.css';
 
 
 // Credit to this ---> https://stackoverflow.com/questions/48493960/using-google-map-in-react-component
-// for helping me create a map component
-
+// for helping me create a Google Map component
+// This uses reacts PureComponent class to prevent infinite rerendering upon updates
 class Map extends PureComponent {
   constructor(props) {
     super(props);
@@ -13,6 +13,7 @@ class Map extends PureComponent {
     };
   } 
   
+  // Create and append script tag that calls to Google's map API
   componentDidMount() {
     const GMapsKey = 'AIzaSyCPqE2gTI9OwdjkIwi0FDNAUfyLF44Pq7k';
     const script = document.createElement('script');
@@ -25,6 +26,7 @@ class Map extends PureComponent {
     document.body.appendChild(script);
   }
 
+  // Configure map and populate it with markers
   componentDidUpdate() {
     if (this.state.mapIsReady) {
       const roanoke = {
@@ -36,6 +38,7 @@ class Map extends PureComponent {
         center: roanoke,
         mapTypeControl: false,
         streetViewControl: false,
+        // Styles taken from Google's "night mode" documentation
         styles: [
             {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
             {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
@@ -117,16 +120,17 @@ class Map extends PureComponent {
             }
           ]
       })
-      const google = window.google.maps
+      const google = window.google.maps;
       const map = this.map;
-      const restaurants =  this.props.restaurants
+      const restaurants =  this.props.restaurants;
       this.props.setMarkers(google, map, restaurants);
     }
   }
 
   render() {
     return (
-      <section id="map"></section>
+      // eslint-disable-next-line
+      <section id="map" aria-label="application" role="maps"></section>
     );
   }
 }
