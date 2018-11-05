@@ -10,6 +10,10 @@ the info windows of these markers with information taken from the initial Yelp F
 
 The results can be filtered by both price and average rating.
 
+## How to Run App
+
+First download or fork and clone this repository. In the project folder and run `npm install` to download all required dependencies. then run `npm start` to run the development build of the app or `npm run build` for the production build. 
+
 ## Dependencies
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
