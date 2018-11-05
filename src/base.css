@@ -1,0 +1,61 @@
+
+* {
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.App {
+	height: 100%;
+	display: flex;
+}
+
+.info-window {
+	text-align: center;
+	padding-left: 24px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 250px;
+	height: 300px;
+}
+
+.info-window img {
+	height: 140px;
+}
+
+.info-window h2,
+.info-window p {
+	padding: 4px 0; 
+}
+
+.info-window h2 {
+	font-size: 14px;
+}
+
+.info-window-attr {
+	font-size: 10px;
+}
+
+@media screen and (max-width: 550px) {
+	.info-window {
+		text-align: center;
+		padding-left: 24px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 120px;
+		height: 260px;
+	}
+
+	.info-window img {
+		height:70px;
+	}
+
+	.info-window h2 {
+		font-size: 12px;
+	}
+	.info-window-attr {
+		font-size: 8px;
+	}
+}

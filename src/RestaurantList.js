@@ -1,14 +1,20 @@
 import React from 'react';
+import './RestaurantList.css';
 
 function RestaurantList(props) {
 	const list =  props.restaurants.map(function(elem, i) {
 		return (
-			<li><a href='#' onClick={()=>new props.google.event.trigger(props.markers[i], 'click')} key={elem.id}>{elem.name}</a></li>
+			<li key={elem.id}><button onClick={()=>{
+				props.toggleMenu();
+				new props.google.event.trigger(props.markers[i], 'click');
+				}
+			}>{elem.name}</button></li>
 		)
 	})
-	console.log(props.google ? props.google : 'test')
   return (
-    <ul>{list}</ul>
+  	<nav className={props.menuState}>
+    	<ul className="list">{list}</ul>
+    </nav>
   );
 }
 

@@ -1,0 +1,49 @@
+.list {
+	width: 300px;
+}
+
+.list li {
+	font-size: 20px;
+	list-style-type: none;
+}
+
+.list button {
+	font-size: 14px;
+	font-weight: bold;
+	width: 100%;
+	height: 48px;
+	border: none;
+	background-color: #fff;
+}
+
+.list button:hover {
+	background-color: #ddd;
+	cursor: pointer;
+}
+
+.list button:focus {
+	outline: none;
+	background-color: #ddd;
+}
+
+.list.menu-show {
+	background-color: green;
+}
+
+@media screen and (max-width: 750px) {
+	nav {
+		position: absolute;	
+		background-color: white;
+		z-index: 1;
+		padding-top: 48px;
+		transition: margin-left 1s ease;
+	}
+
+	nav.menu-hide {
+		margin-left: -300px;
+	}
+
+	nav.menu-show {
+		margin-left: 0;
+	}
+}

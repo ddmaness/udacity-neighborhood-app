@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import './Map.css'
 
 
 // Credit to this ---> https://stackoverflow.com/questions/48493960/using-google-map-in-react-component
@@ -25,14 +26,13 @@ class Map extends PureComponent {
   }
 
   componentDidUpdate() {
-    console.log('gotem');
     if (this.state.mapIsReady) {
       const roanoke = {
         lat: 37.270969,
         lng: -79.941429,
       }
       this.map = new window.google.maps.Map(document.getElementById('map'), {
-        zoom: 13,
+        zoom: 12,
         center: roanoke,
         mapTypeControl: false,
         streetViewControl: false,
@@ -126,7 +126,7 @@ class Map extends PureComponent {
 
   render() {
     return (
-      <div id="map" style={{width: 800, height: 600}}></div>
+      <section id="map"></section>
     );
   }
 }

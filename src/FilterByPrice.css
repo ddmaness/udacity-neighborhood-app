@@ -1,0 +1,20 @@
+.filter-by-price {
+	top: 10px;
+	right: 60px;
+	z-index: 1;
+}
+
+@media screen and (max-width: 750px) {
+	.filter-by-price {
+		top: auto;
+		right: auto;
+		bottom: 30px;
+		left: 155px;
+	}
+}
+
+@media screen and (max-width: 350px) {
+	.filter-by-price {
+		left: 133px;
+	}
+}

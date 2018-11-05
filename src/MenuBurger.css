@@ -1,0 +1,39 @@
+.menu-burger > div {
+  height: 4px;
+  width: 35px;
+  margin: 5px 0;
+  background-color: white;
+  transition: transform 1s ease, opacity 1s ease, background-color 1s ease;
+}
+
+.menu-burger {
+	position: absolute;
+	z-index: 2;
+	top: 12px;
+	left: 12px;
+}
+
+.menu-burger:hover {
+	cursor: pointer;
+}
+
+.menu-burger.menu-show > div:nth-of-type(1) {
+  transform: rotate(45deg) translate(3px,10px); 
+  background-color: black;
+}
+
+.menu-burger.menu-show > div:nth-of-type(2) {
+  opacity: 0;
+  background-color: black;
+}
+
+.menu-burger.menu-show > div:nth-of-type(3) {
+  transform: rotate(-45deg) translate(3px,-10px);
+  background-color: black;
+}
+
+@media screen and (min-width: 750px) {
+	.menu-burger {
+		visibility: hidden;
+	}
+}

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import './App.css';
+import './base.css';
 import Map from './Map';
 import RestaurantList from './RestaurantList';
 import FilterByRating from './FilterByRating';
 import FilterByPrice from './FilterByPrice';
+import MenuBurger from './MenuBurger'
 
 class App extends Component {
 	constructor(props) {
@@ -15,9 +16,11 @@ class App extends Component {
 			ratingFilter: 0,
 			restaurants: [],
 			selectedRestaurants: [],
+			menuState: 'menu-hide',
 		}
 		this.setFilters = this.setFilters.bind(this);
 		this.setMarkers = this.setMarkers.bind(this);
+		this.toggleMenu = this.toggleMenu.bind(this);
 	}
 
 	setFilters(event, property) {
@@ -58,8 +61,20 @@ class App extends Component {
 		}
 	}
 
+	toggleMenu() {
+		if(this.state.menuState === 'menu-hide'){
+			this.setState({
+				menuState: 'menu-show'
+			})
+		}
+		else {
+			this.setState({
+				menuState: 'menu-hide'
+			})	
+		}
+	}
+
 	setMarkers(google, map, restaurants) {
-		console.log(restaurants)
 		const markers = [];
 		let largeInfoWindow = new google.InfoWindow();
 		for (let i = 0; i < restaurants.length; i++){
@@ -84,17 +99,17 @@ class App extends Component {
 		function populateInfoWindow(marker, infowindow, map, restaurant) {
 			if (infowindow.marker !== marker) {
 				infowindow.marker = marker;
-				infowindow.setContent(`<h2>${restaurant.name}</h2>
-															<p>Rating: ${restaurant.rating ? restaurant.rating : 'Unavailable'} Price: ${restaurant.price ? restaurant.price : 'Unavailable'}</p>
-															<img alt=${restaurant.name} src=${restaurant.image_url}>
-															<p>${restaurant.is_open ? 'Open' : 'Closed'}</p>
-															<p>${restaurant.location.address1} ${restaurant.location.address2}, ${restaurant.location.city} ${restaurant.location.zip_code}</p>
-															<p>${restaurant.display_phone}</p>`)
+				infowindow.setContent(`<div class="info-window">
+																<h2>${restaurant.name}</h2>
+																<p>Rating: ${restaurant.rating ? restaurant.rating : 'Unavailable'} Price: ${restaurant.price ? restaurant.price : 'Unavailable'}</p>
+																<img alt=${restaurant.name} src=${restaurant.image_url}>
+																<p>${restaurant.is_open ? 'Open' : 'Closed'}</p>
+																<p>${restaurant.location.address1} ${restaurant.location.address2}, ${restaurant.location.city} ${restaurant.location.zip_code}</p>
+																<p>${restaurant.display_phone}</p>
+																<p class='info-window-attr'>Information courtesy of Yelp's API</p>
+															</div>`)
 
 				infowindow.open(map, marker);
-				infowindow.addListener('closeclick', function(){
-					infowindow.setMarker(null);
-				});
 			}
 		}
   	this.setState({
@@ -110,15 +125,16 @@ class App extends Component {
 			}
 		}).then(response => response.json()).then(response => {
 			this.setState({restaurants:response.businesses, selectedRestaurants:response.businesses})
-		}).catch(err => console.error(err))
+		}).catch(err => alert('Failed to load information from Yelp'))
 	}
 
   render() {
     return (
       <div className="App">
+      	<MenuBurger toggleMenu={this.toggleMenu} menuState={this.state.menuState}/>
       	<FilterByRating onChange={this.setFilters}/>
       	<FilterByPrice onChange={this.setFilters}/>
-      	<RestaurantList restaurants={this.state.selectedRestaurants} google={this.state.googleMap} markers={this.state.markers}/>
+      	<RestaurantList toggleMenu={this.toggleMenu} menuState={this.state.menuState} restaurants={this.state.selectedRestaurants} google={this.state.googleMap} markers={this.state.markers}/>
         <Map restaurants={this.state.selectedRestaurants} setMarkers={this.setMarkers}/>
       </div>
     );

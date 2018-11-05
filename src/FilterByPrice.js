@@ -1,9 +1,11 @@
 import React from 'react';
+import './select.css';
+import './FilterByPrice.css'
 
 function FilterByPrice(props) {
   return (
-    <select onChange={function(event){props.onChange(event, 'priceFilter')}}>
-    	<option value="$$$">Any</option>
+    <select className="filter-by-price" onChange={function(event){props.onChange(event, 'priceFilter')}}>
+    	<option value="$$$">Any Price</option>
     	<option value="$$">Cheaper</option>
     	<option value="$">Cheapest</option>
     </select>
