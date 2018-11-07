@@ -19,11 +19,13 @@ class Map extends PureComponent {
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=${GMapsKey}`;
     script.async = true;
+    script.onerror = () => alert('Google Maps has experienced an error');
     script.addEventListener('load', () => {
       this.setState({ mapIsReady: true });
     });
-
     document.body.appendChild(script);
+    // Global function for handling authentication failures as per Google's Documentation
+    window.gm_authFailure = () => alert('Google Maps API authentication has failed');
   }
 
   // Configure map and populate it with markers
@@ -129,8 +131,7 @@ class Map extends PureComponent {
 
   render() {
     return (
-      // eslint-disable-next-line
-      <section id="map" aria-label="application" role="maps"></section>
+      <section id="map" aria-label="map of Roanoke, Virginia" role="application"></section>
     );
   }
 }
