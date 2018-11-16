@@ -131,7 +131,9 @@ class Map extends PureComponent {
 
   render() {
     return (
-      <section id="map" aria-label="map of Roanoke, Virginia" role="application"></section>
+      <div class="map-container">
+        <section id="map" aria-label="map of Roanoke, Virginia" role="application"></section>
+      </div>
     );
   }
 }

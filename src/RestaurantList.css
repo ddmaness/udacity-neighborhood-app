@@ -1,5 +1,9 @@
+nav{
+ width: 25%;
+}
+
 .list {
-	width: 300px;
+	width: 100%;
 }
 
 .list li {
@@ -33,6 +37,7 @@
 
 @media screen and (max-width: 750px) {
 	nav {
+		width:300px;
 		position: absolute;	
 		background-color: white;
 		z-index: 1;
